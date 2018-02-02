@@ -63,6 +63,24 @@ module.exports = function(app, db){
              //   res.send('this should be reurned note');
             });
 
-
     //Delete
+    app.delete('/nodes/:id', (req, res) => {
+        
+        const myDB = db.db('notesdb');
+        
+        const id = req.params.id;
+        const details = {'_id' : new objectId(id)};
+
+        myDB.collection('notes').remove(details, (err, item) => {
+           if(err){
+                res.send({'error': 'an error again'});
+           }
+           else{
+                 res.send('Note'+ id + 'deleted!');
+                    }
+                });
+        
+                console.log('Updating a note');
+             //   res.send('this should be reurned note');
+            });
 };
