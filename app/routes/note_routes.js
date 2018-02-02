@@ -40,7 +40,29 @@ module.exports = function(app, db){
         console.log('asking for a note');
      //   res.send('this should be reurned note');
     });
+
     //Update
+    app.put('/nodes/:id', (req, res) => {
+        
+        const myDB = db.db('notesdb');
+        
+        const id = req.params.id;
+        const details = {'_id' : new objectId(id)};
+        const note = {text: req.body.body,  title: req.body.title};
+
+        myDB.collection('notes').update(details, note, (err, result) => {
+           if(err){
+                res.send({'error': 'an error again'});
+           }
+           else{
+                 res.send(note);
+                    }
+                });
+        
+                console.log('Updating a note');
+             //   res.send('this should be reurned note');
+            });
+
 
     //Delete
 };
