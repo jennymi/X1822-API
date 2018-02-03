@@ -40,6 +40,31 @@ module.exports = function(app, db){
 
         console.log('asking for a note');
      //   res.send('this should be reurned note');
+
+    //without ID
+    app.get('/nodes', cors(), (req,res)=>{
+        const myDB = db.db('notesdb');
+        
+        myDB.collection('notes').find({}).toArray((err,item) =>{
+            if(err){
+                res.send({'error': 'An error has occured'});
+            }
+            else{
+                res.send(item);
+                }
+        });
+
+        // myDB.collection('notes').find((err, item) => {
+        //     if(err) {
+        //         res.send({'error': 'An error has occured'});
+        //     }
+        //     else {
+        //         res.send(item);
+        //     }
+        // });
+        console.log('asking for all notes');
+    })
+
     });
 
     //Update
